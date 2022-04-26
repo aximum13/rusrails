@@ -16,7 +16,7 @@
     "yaspeller": "yaspeller ."
   },
   "repository": {
-    "type": "git",
+    "type": "HTTPS",
     "url": "git+https://github.com/morsbox/rusrails.git"
   },
   "author": "Mikhail Dieterle",
