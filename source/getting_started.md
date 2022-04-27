@@ -977,11 +977,11 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def destroy
+   def destroy
     @article = Article.find(params[:id])
     @article.destroy
 
-    redirect_to root_path
+    redirect_to root_path, status: :see_other
   end
 
   private
@@ -1004,9 +1004,10 @@ end
 
 <ul>
   <li><%= link_to "Edit", edit_article_path(@article) %></li>
-  <li><%= link_to "Destroy", article_path(@article),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></li>
+  <li><%= link_to "Destroy", article_path(@article), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
 </ul>
 ```
 
@@ -1604,9 +1605,10 @@ Our blog has <%= Article.public_count %> articles and counting!
 </p>
 
 <p>
-  <%= link_to 'Destroy Comment', [comment.article, comment],
-              method: :delete,
-              data: { confirm: "Are you sure?" } %>
+  <%= link_to "Destroy Comment", [comment.article, comment], data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              } %>
 </p>
 ```
 
@@ -1621,11 +1623,11 @@ class CommentsController < ApplicationController
     redirect_to article_path(@article)
   end
 
-  def destroy
+   def destroy
     @article = Article.find(params[:article_id])
     @comment = @article.comments.find(params[:id])
     @comment.destroy
-    redirect_to article_path(@article)
+    redirect_to article_path(@article), status: 303
   end
 
   private
